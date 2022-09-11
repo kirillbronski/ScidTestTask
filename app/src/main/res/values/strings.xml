@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ScidTestTask</string>
+    <string name="app_name" translatable="false">ScidTestTask</string>
+    <string name="tittle_name">List</string>
 </resources>
