@@ -15,11 +15,9 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initDataItem()
-
     }
 
     private fun initDataItem() {
-
         args.dataItem?.let {
             with(binding) {
                 setTittleName(it.name)

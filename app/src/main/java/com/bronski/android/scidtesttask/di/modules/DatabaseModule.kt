@@ -29,5 +29,4 @@ class DatabaseModule {
     @Singleton
     fun provideLaunchesDao(database: AppDatabase): DataDao =
         database.dataDao()
-
 }
