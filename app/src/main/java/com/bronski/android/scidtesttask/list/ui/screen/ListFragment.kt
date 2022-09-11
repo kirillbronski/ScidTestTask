@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bronski.android.scidtesttask.R
+import com.bronski.android.scidtesttask.core.state.ViewState
 import com.bronski.android.scidtesttask.core.ui.BaseFragment
 import com.bronski.android.scidtesttask.core.utils.RecyclerItemListener
 import com.bronski.android.scidtesttask.databinding.FragmentListBinding
@@ -34,6 +35,24 @@ class ListFragment : BaseFragment<FragmentListBinding>() {
         setTittleName(getString(R.string.tittle_name))
         setUpAdapter()
         observeList()
+        observeViewState()
+        swipeToRefreshData()
+    }
+
+    private fun observeViewState(){
+        lifecycleScope.launchWhenStarted {
+            viewModel.viewState.collect{
+                when(it){
+                    is ViewState.SuccessState -> {
+                        hideProgressIndicator(binding.progressBar)
+                    }
+                    is ViewState.LoadingState -> {
+                        showProgressIndicator(binding.progressBar)
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 
     private fun setUpAdapter() = with(binding) {
@@ -48,6 +67,15 @@ class ListFragment : BaseFragment<FragmentListBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.list.collectLatest {
                 listAdapter.submitData(it)
+            }
+        }
+    }
+
+    private fun swipeToRefreshData() = with(binding) {
+        swipeToRefresh.setOnRefreshListener {
+            viewModel.getApiData()
+            if (swipeToRefresh.isShown) {
+                swipeToRefresh.isRefreshing = false
             }
         }
     }
