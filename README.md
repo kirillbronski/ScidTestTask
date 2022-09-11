@@ -1,6 +1,6 @@
 **Test task for "SCID" company**
 
-**Books List**
+**"Books List"**
 
 **Technology stack**
 
@@ -13,3 +13,5 @@
     Retrofit
     Hilt
     Flow
+*Screenshots:*    
+![to githubpng](https://user-images.githubusercontent.com/75751878/189525299-fa28a55b-ef40-4eaf-b24b-bc318a6101f3.png)
