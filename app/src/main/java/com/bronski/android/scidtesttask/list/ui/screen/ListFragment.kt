@@ -45,6 +45,9 @@ class ListFragment : BaseFragment<FragmentListBinding>() {
                 when(it){
                     is ViewState.SuccessState -> {
                         hideProgressIndicator(binding.progressBar)
+                        if (binding.swipeToRefresh.isShown) {
+                            binding.swipeToRefresh.isRefreshing = false
+                        }
                     }
                     is ViewState.LoadingState -> {
                         showProgressIndicator(binding.progressBar)
@@ -74,9 +77,6 @@ class ListFragment : BaseFragment<FragmentListBinding>() {
     private fun swipeToRefreshData() = with(binding) {
         swipeToRefresh.setOnRefreshListener {
             viewModel.getApiData()
-            if (swipeToRefresh.isShown) {
-                swipeToRefresh.isRefreshing = false
-            }
         }
     }
 
